@@ -82,7 +82,7 @@ export function pointEffector(opt: PointEffectorOpt): PointEffectorComp {
                     const l = v.len()
                     const d = l * distanceScale / 10
                     const s = forceMode === "constant" ? 1 : forceMode === "inverseLinear" ? 1 / d : 1 / d ** 2
-                    rb.applyForce(v.scale(forceMagnitude * s / l))
+                    rb.addForce(v.scale(forceMagnitude * s / l))
                 }
             })
         },

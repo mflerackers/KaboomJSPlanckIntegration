@@ -27,7 +27,7 @@ const bean = add([
     rotate(0),
     rigidBody({ type: "dynamic", freezeRotation: true }),
     circleCollider({ radius: 25, friction: 0.5 }),
-    pointEffector({ forceMagnitude: -1000, forceMode: "inverseLinear", distanceScale: 0.1 }),
+    pointEffector({ forceMagnitude: -10000, forceMode: "inverseLinear", distanceScale: 0.1 }),
 ])
 
 add([
@@ -83,11 +83,11 @@ onKeyPress("space", () => {
 })
 
 onKeyDown("right", () => {
-    bean.applyForce(vec2(500, 0))
+    bean.addForce(vec2(500, 0))
 })
 
 onKeyDown("left", () => {
-    bean.applyForce(vec2(-500, 0))
+    bean.addForce(vec2(-500, 0))
 })
 
 onMousePress(() => {
@@ -103,8 +103,4 @@ onMouseMove(() => {
 
 onMouseRelease(() => {
     bean.unuse("targetJoint")
-})
-
-loop(1, () => {
-    console.log(center().angle(mousePos()))
 })

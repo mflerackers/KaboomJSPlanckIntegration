@@ -1,5 +1,6 @@
 import { Vec2 as V2 } from "kaboom"
 import { Box, CircleShape, BoxShape, PolygonShape, ChainShape, Vec2 } from 'planck'
+import { k2p } from "./world"
 
 export type ColliderOpt = {
     friction?: number
@@ -8,7 +9,7 @@ export type ColliderOpt = {
 }
 
 export function collider(opt: ColliderOpt) {
-    let fixture
+    let _fixture
     return {
         id: "collider",
         require: ["rigidBody"],
@@ -17,7 +18,7 @@ export function collider(opt: ColliderOpt) {
             if (this.is("sprite") || this.is("rect")) {
                 const w = (this.width || 61) / 20
                 const h = (this.height || 53) / 20
-                fixture = this.body.createFixture({
+                _fixture = this.body.createFixture({
                     shape: new Box(w, h, Vec2(0, 0)),
                     density: 1,
                     friction: opt.friction || 0,
@@ -27,7 +28,7 @@ export function collider(opt: ColliderOpt) {
                 })
             }
             else {
-                fixture = this.body.createFixture({
+                _fixture = this.body.createFixture({
                     shape: new Box(50 / 2, 4 / 2, Vec2(0, 0)),
                     density: 1,
                     friction: opt.friction || 0,
@@ -37,7 +38,7 @@ export function collider(opt: ColliderOpt) {
             }
         },
         destroy() {
-            this.body.destroyFixture(fixture);
+            this.body.destroyFixture(_fixture);
         },
         /*draw() {
             let shape = fixture.getShape()
@@ -87,12 +88,12 @@ export type CircleColliderOpt = ColliderOpt & {
 }
 
 export function circleCollider(opt: CircleColliderOpt) {
-    let fixture
+    let _fixture
     return {
         id: "circleCollider",
         require: ["rigidBody"],
         add() {
-            fixture = this.body.createFixture({
+            _fixture = this.body.createFixture({
                 shape: new CircleShape(opt.offset ? k2p(opt.offset) : Vec2(0, 0), opt.radius / 10),
                 density: 1,
                 friction: opt.friction || 0,
@@ -101,7 +102,7 @@ export function circleCollider(opt: CircleColliderOpt) {
             })
         },
         destroy() {
-            this.body.destroyFixture(fixture);
+            this.body.destroyFixture(_fixture);
         }
     }
 }
@@ -112,12 +113,12 @@ export type BoxColliderOpt = ColliderOpt & {
 }
 
 export function boxCollider(opt: BoxColliderOpt) {
-    let fixture
+    let _fixture
     return {
         id: "boxCollider",
         require: ["rigidBody"],
         add() {
-            fixture = this.body.createFixture({
+            _fixture = this.body.createFixture({
                 shape: new BoxShape(opt.size.x / 20, opt.size.y / 20, opt.offset ? k2p(opt.offset) : Vec2(0, 0), 0),
                 density: 1,
                 friction: opt.friction || 0,
@@ -126,7 +127,7 @@ export function boxCollider(opt: BoxColliderOpt) {
             })
         },
         destroy() {
-            this.body.destroyFixture(fixture);
+            this.body.destroyFixture(_fixture);
         }
     }
 }
@@ -137,12 +138,12 @@ export type PolygonColliderOpt = ColliderOpt & {
 }
 
 export function polygonCollider(opt: PolygonColliderOpt) {
-    let fixture
+    let _fixture
     return {
         id: "polygonCollider",
         require: ["rigidBody"],
         add() {
-            fixture = this.body.createFixture({
+            _fixture = this.body.createFixture({
                 shape: new PolygonShape(opt.points.map(p => k2p(p))),
                 density: 1,
                 friction: opt.friction || 0,
@@ -151,7 +152,7 @@ export function polygonCollider(opt: PolygonColliderOpt) {
             })
         },
         destroy() {
-            this.body.destroyFixture(fixture);
+            this.body.destroyFixture(_fixture);
         }
     }
 }
@@ -162,12 +163,12 @@ export type EdgeColliderOpt = ColliderOpt & {
 }
 
 export function edgeCollider(opt: EdgeColliderOpt) {
-    let fixture
+    let _fixture
     return {
         id: "edgeCollider",
         require: ["rigidBody"],
         add() {
-            fixture = this.body.createFixture({
+            _fixture = this.body.createFixture({
                 shape: new ChainShape(opt.points.map(p => k2p(p))),
                 density: 1,
                 friction: opt.friction || 0,
@@ -176,7 +177,7 @@ export function edgeCollider(opt: EdgeColliderOpt) {
             })
         },
         destroy() {
-            this.body.destroyFixture(fixture);
+            this.body.destroyFixture(_fixture);
         }
     }
 }

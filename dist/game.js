@@ -6736,7 +6736,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
     userData: null
   };
   var Body = function() {
-    function Body3(world2, def) {
+    function Body2(world2, def) {
       def = options(def, BodyDefDefault);
       this.m_world = world2;
       this.m_awakeFlag = def.awake;
@@ -6779,8 +6779,8 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       this.m_next = null;
       this.m_destroyed = false;
     }
-    __name(Body3, "Body");
-    Body3.prototype._serialize = function() {
+    __name(Body2, "Body");
+    Body2.prototype._serialize = function() {
       var fixtures = [];
       for (var f = this.m_fixtureList; f; f = f.m_next) {
         fixtures.push(f);
@@ -6795,8 +6795,8 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         fixtures
       };
     };
-    Body3._deserialize = function(data, world2, restore) {
-      var body = new Body3(world2, data);
+    Body2._deserialize = function(data, world2, restore) {
+      var body = new Body2(world2, data);
       if (data.fixtures) {
         for (var i = data.fixtures.length - 1; i >= 0; i--) {
           var fixture = restore(Fixture, data.fixtures[i], body);
@@ -6805,55 +6805,55 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       }
       return body;
     };
-    Body3.prototype.isWorldLocked = function() {
+    Body2.prototype.isWorldLocked = function() {
       return this.m_world && this.m_world.isLocked() ? true : false;
     };
-    Body3.prototype.getWorld = function() {
+    Body2.prototype.getWorld = function() {
       return this.m_world;
     };
-    Body3.prototype.getNext = function() {
+    Body2.prototype.getNext = function() {
       return this.m_next;
     };
-    Body3.prototype.setUserData = function(data) {
+    Body2.prototype.setUserData = function(data) {
       this.m_userData = data;
     };
-    Body3.prototype.getUserData = function() {
+    Body2.prototype.getUserData = function() {
       return this.m_userData;
     };
-    Body3.prototype.getFixtureList = function() {
+    Body2.prototype.getFixtureList = function() {
       return this.m_fixtureList;
     };
-    Body3.prototype.getJointList = function() {
+    Body2.prototype.getJointList = function() {
       return this.m_jointList;
     };
-    Body3.prototype.getContactList = function() {
+    Body2.prototype.getContactList = function() {
       return this.m_contactList;
     };
-    Body3.prototype.isStatic = function() {
+    Body2.prototype.isStatic = function() {
       return this.m_type == STATIC;
     };
-    Body3.prototype.isDynamic = function() {
+    Body2.prototype.isDynamic = function() {
       return this.m_type == DYNAMIC;
     };
-    Body3.prototype.isKinematic = function() {
+    Body2.prototype.isKinematic = function() {
       return this.m_type == KINEMATIC;
     };
-    Body3.prototype.setStatic = function() {
+    Body2.prototype.setStatic = function() {
       this.setType(STATIC);
       return this;
     };
-    Body3.prototype.setDynamic = function() {
+    Body2.prototype.setDynamic = function() {
       this.setType(DYNAMIC);
       return this;
     };
-    Body3.prototype.setKinematic = function() {
+    Body2.prototype.setKinematic = function() {
       this.setType(KINEMATIC);
       return this;
     };
-    Body3.prototype.getType = function() {
+    Body2.prototype.getType = function() {
       return this.m_type;
     };
-    Body3.prototype.setType = function(type) {
+    Body2.prototype.setType = function(type) {
       if (this.isWorldLocked() == true) {
         return;
       }
@@ -6885,25 +6885,25 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         }
       }
     };
-    Body3.prototype.isBullet = function() {
+    Body2.prototype.isBullet = function() {
       return this.m_bulletFlag;
     };
-    Body3.prototype.setBullet = function(flag) {
+    Body2.prototype.setBullet = function(flag) {
       this.m_bulletFlag = !!flag;
     };
-    Body3.prototype.isSleepingAllowed = function() {
+    Body2.prototype.isSleepingAllowed = function() {
       return this.m_autoSleepFlag;
     };
-    Body3.prototype.setSleepingAllowed = function(flag) {
+    Body2.prototype.setSleepingAllowed = function(flag) {
       this.m_autoSleepFlag = !!flag;
       if (this.m_autoSleepFlag == false) {
         this.setAwake(true);
       }
     };
-    Body3.prototype.isAwake = function() {
+    Body2.prototype.isAwake = function() {
       return this.m_awakeFlag;
     };
-    Body3.prototype.setAwake = function(flag) {
+    Body2.prototype.setAwake = function(flag) {
       if (flag) {
         this.m_awakeFlag = true;
         this.m_sleepTime = 0;
@@ -6916,10 +6916,10 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         this.m_torque = 0;
       }
     };
-    Body3.prototype.isActive = function() {
+    Body2.prototype.isActive = function() {
       return this.m_activeFlag;
     };
-    Body3.prototype.setActive = function(flag) {
+    Body2.prototype.setActive = function(flag) {
       if (flag == this.m_activeFlag) {
         return;
       }
@@ -6944,10 +6944,10 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         this.m_contactList = null;
       }
     };
-    Body3.prototype.isFixedRotation = function() {
+    Body2.prototype.isFixedRotation = function() {
       return this.m_fixedRotationFlag;
     };
-    Body3.prototype.setFixedRotation = function(flag) {
+    Body2.prototype.setFixedRotation = function(flag) {
       if (this.m_fixedRotationFlag == flag) {
         return;
       }
@@ -6955,10 +6955,10 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       this.m_angularVelocity = 0;
       this.resetMassData();
     };
-    Body3.prototype.getTransform = function() {
+    Body2.prototype.getTransform = function() {
       return this.m_xf;
     };
-    Body3.prototype.setTransform = function(position, angle) {
+    Body2.prototype.setTransform = function(position, angle) {
       if (this.isWorldLocked() == true) {
         return;
       }
@@ -6970,51 +6970,51 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       }
       this.setAwake(true);
     };
-    Body3.prototype.synchronizeTransform = function() {
+    Body2.prototype.synchronizeTransform = function() {
       this.m_sweep.getTransform(this.m_xf, 1);
     };
-    Body3.prototype.synchronizeFixtures = function() {
+    Body2.prototype.synchronizeFixtures = function() {
       this.m_sweep.getTransform(xf$2, 0);
       var broadPhase = this.m_world.m_broadPhase;
       for (var f = this.m_fixtureList; f; f = f.m_next) {
         f.synchronize(broadPhase, xf$2, this.m_xf);
       }
     };
-    Body3.prototype.advance = function(alpha) {
+    Body2.prototype.advance = function(alpha) {
       this.m_sweep.advance(alpha);
       copyVec2(this.m_sweep.c, this.m_sweep.c0);
       this.m_sweep.a = this.m_sweep.a0;
       this.m_sweep.getTransform(this.m_xf, 1);
     };
-    Body3.prototype.getPosition = function() {
+    Body2.prototype.getPosition = function() {
       return this.m_xf.p;
     };
-    Body3.prototype.setPosition = function(p) {
+    Body2.prototype.setPosition = function(p) {
       this.setTransform(p, this.m_sweep.a);
     };
-    Body3.prototype.getAngle = function() {
+    Body2.prototype.getAngle = function() {
       return this.m_sweep.a;
     };
-    Body3.prototype.setAngle = function(angle) {
+    Body2.prototype.setAngle = function(angle) {
       this.setTransform(this.m_xf.p, angle);
     };
-    Body3.prototype.getWorldCenter = function() {
+    Body2.prototype.getWorldCenter = function() {
       return this.m_sweep.c;
     };
-    Body3.prototype.getLocalCenter = function() {
+    Body2.prototype.getLocalCenter = function() {
       return this.m_sweep.localCenter;
     };
-    Body3.prototype.getLinearVelocity = function() {
+    Body2.prototype.getLinearVelocity = function() {
       return this.m_linearVelocity;
     };
-    Body3.prototype.getLinearVelocityFromWorldPoint = function(worldPoint) {
+    Body2.prototype.getLinearVelocityFromWorldPoint = function(worldPoint) {
       var localCenter2 = Vec2.sub(worldPoint, this.m_sweep.c);
       return Vec2.add(this.m_linearVelocity, Vec2.crossNumVec2(this.m_angularVelocity, localCenter2));
     };
-    Body3.prototype.getLinearVelocityFromLocalPoint = function(localPoint) {
+    Body2.prototype.getLinearVelocityFromLocalPoint = function(localPoint) {
       return this.getLinearVelocityFromWorldPoint(this.getWorldPoint(localPoint));
     };
-    Body3.prototype.setLinearVelocity = function(v3) {
+    Body2.prototype.setLinearVelocity = function(v3) {
       if (this.m_type == STATIC) {
         return;
       }
@@ -7023,10 +7023,10 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       }
       this.m_linearVelocity.setVec2(v3);
     };
-    Body3.prototype.getAngularVelocity = function() {
+    Body2.prototype.getAngularVelocity = function() {
       return this.m_angularVelocity;
     };
-    Body3.prototype.setAngularVelocity = function(w) {
+    Body2.prototype.setAngularVelocity = function(w) {
       if (this.m_type == STATIC) {
         return;
       }
@@ -7035,36 +7035,36 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       }
       this.m_angularVelocity = w;
     };
-    Body3.prototype.getLinearDamping = function() {
+    Body2.prototype.getLinearDamping = function() {
       return this.m_linearDamping;
     };
-    Body3.prototype.setLinearDamping = function(linearDamping) {
+    Body2.prototype.setLinearDamping = function(linearDamping) {
       this.m_linearDamping = linearDamping;
     };
-    Body3.prototype.getAngularDamping = function() {
+    Body2.prototype.getAngularDamping = function() {
       return this.m_angularDamping;
     };
-    Body3.prototype.setAngularDamping = function(angularDamping) {
+    Body2.prototype.setAngularDamping = function(angularDamping) {
       this.m_angularDamping = angularDamping;
     };
-    Body3.prototype.getGravityScale = function() {
+    Body2.prototype.getGravityScale = function() {
       return this.m_gravityScale;
     };
-    Body3.prototype.setGravityScale = function(scale) {
+    Body2.prototype.setGravityScale = function(scale) {
       this.m_gravityScale = scale;
     };
-    Body3.prototype.getMass = function() {
+    Body2.prototype.getMass = function() {
       return this.m_mass;
     };
-    Body3.prototype.getInertia = function() {
+    Body2.prototype.getInertia = function() {
       return this.m_I + this.m_mass * Vec2.dot(this.m_sweep.localCenter, this.m_sweep.localCenter);
     };
-    Body3.prototype.getMassData = function(data) {
+    Body2.prototype.getMassData = function(data) {
       data.mass = this.m_mass;
       data.I = this.getInertia();
       copyVec2(data.center, this.m_sweep.localCenter);
     };
-    Body3.prototype.resetMassData = function() {
+    Body2.prototype.resetMassData = function() {
       this.m_mass = 0;
       this.m_invMass = 0;
       this.m_I = 0;
@@ -7111,7 +7111,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       crossNumVec2(temp$6, this.m_angularVelocity, shift);
       addVec2(this.m_linearVelocity, temp$6);
     };
-    Body3.prototype.setMassData = function(massData) {
+    Body2.prototype.setMassData = function(massData) {
       if (this.isWorldLocked() == true) {
         return;
       }
@@ -7136,7 +7136,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       crossNumVec2(temp$6, this.m_angularVelocity, shift);
       addVec2(this.m_linearVelocity, temp$6);
     };
-    Body3.prototype.applyForce = function(force, point2, wake) {
+    Body2.prototype.applyForce = function(force, point2, wake) {
       if (wake === void 0) {
         wake = true;
       }
@@ -7151,7 +7151,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         this.m_torque += Vec2.crossVec2Vec2(Vec2.sub(point2, this.m_sweep.c), force);
       }
     };
-    Body3.prototype.applyForceToCenter = function(force, wake) {
+    Body2.prototype.applyForceToCenter = function(force, wake) {
       if (wake === void 0) {
         wake = true;
       }
@@ -7165,7 +7165,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         this.m_force.add(force);
       }
     };
-    Body3.prototype.applyTorque = function(torque, wake) {
+    Body2.prototype.applyTorque = function(torque, wake) {
       if (wake === void 0) {
         wake = true;
       }
@@ -7179,7 +7179,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         this.m_torque += torque;
       }
     };
-    Body3.prototype.applyLinearImpulse = function(impulse, point2, wake) {
+    Body2.prototype.applyLinearImpulse = function(impulse, point2, wake) {
       if (wake === void 0) {
         wake = true;
       }
@@ -7194,7 +7194,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         this.m_angularVelocity += this.m_invI * Vec2.crossVec2Vec2(Vec2.sub(point2, this.m_sweep.c), impulse);
       }
     };
-    Body3.prototype.applyAngularImpulse = function(impulse, wake) {
+    Body2.prototype.applyAngularImpulse = function(impulse, wake) {
       if (wake === void 0) {
         wake = true;
       }
@@ -7208,7 +7208,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         this.m_angularVelocity += this.m_invI * impulse;
       }
     };
-    Body3.prototype.shouldCollide = function(that) {
+    Body2.prototype.shouldCollide = function(that) {
       if (this.m_type != DYNAMIC && that.m_type != DYNAMIC) {
         return false;
       }
@@ -7221,7 +7221,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       }
       return true;
     };
-    Body3.prototype._addFixture = function(fixture) {
+    Body2.prototype._addFixture = function(fixture) {
       if (this.isWorldLocked() == true) {
         return null;
       }
@@ -7237,7 +7237,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       this.m_world.m_newFixture = true;
       return fixture;
     };
-    Body3.prototype.createFixture = function(shape, fixdef) {
+    Body2.prototype.createFixture = function(shape, fixdef) {
       if (this.isWorldLocked() == true) {
         return null;
       }
@@ -7245,7 +7245,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       this._addFixture(fixture);
       return fixture;
     };
-    Body3.prototype.destroyFixture = function(fixture) {
+    Body2.prototype.destroyFixture = function(fixture) {
       if (this.isWorldLocked() == true) {
         return;
       }
@@ -7280,22 +7280,22 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       this.m_world.publish("remove-fixture", fixture);
       this.resetMassData();
     };
-    Body3.prototype.getWorldPoint = function(localPoint) {
+    Body2.prototype.getWorldPoint = function(localPoint) {
       return Transform.mulVec2(this.m_xf, localPoint);
     };
-    Body3.prototype.getWorldVector = function(localVector) {
+    Body2.prototype.getWorldVector = function(localVector) {
       return Rot.mulVec2(this.m_xf.q, localVector);
     };
-    Body3.prototype.getLocalPoint = function(worldPoint) {
+    Body2.prototype.getLocalPoint = function(worldPoint) {
       return Transform.mulTVec2(this.m_xf, worldPoint);
     };
-    Body3.prototype.getLocalVector = function(worldVector) {
+    Body2.prototype.getLocalVector = function(worldVector) {
       return Rot.mulTVec2(this.m_xf.q, worldVector);
     };
-    Body3.STATIC = "static";
-    Body3.KINEMATIC = "kinematic";
-    Body3.DYNAMIC = "dynamic";
-    return Body3;
+    Body2.STATIC = "static";
+    Body2.KINEMATIC = "kinematic";
+    Body2.DYNAMIC = "dynamic";
+    return Body2;
   }();
   var JointEdge = function() {
     function JointEdge2() {
@@ -11130,7 +11130,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
   var e$1 = vec22(0, 0);
   var e1$1 = vec22(0, 0);
   var e2$1 = vec22(0, 0);
-  var center2 = vec22(0, 0);
+  var center = vec22(0, 0);
   var s = vec22(0, 0);
   var PolygonShape = function(_super) {
     __extends(PolygonShape2, _super);
@@ -11273,7 +11273,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       }
       this.m_centroid = computeCentroid(this.m_vertices, m);
     };
-    PolygonShape2.prototype._setAsBox = function(hx, hy, center3, angle) {
+    PolygonShape2.prototype._setAsBox = function(hx, hy, center2, angle) {
       this.m_vertices[0] = Vec2.neo(hx, -hy);
       this.m_vertices[1] = Vec2.neo(hx, hy);
       this.m_vertices[2] = Vec2.neo(-hx, hy);
@@ -11283,11 +11283,11 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       this.m_normals[2] = Vec2.neo(-1, 0);
       this.m_normals[3] = Vec2.neo(0, -1);
       this.m_count = 4;
-      if (center3 && Vec2.isValid(center3)) {
+      if (center2 && Vec2.isValid(center2)) {
         angle = angle || 0;
-        copyVec2(this.m_centroid, center3);
+        copyVec2(this.m_centroid, center2);
         var xf2 = Transform.identity();
-        xf2.p.setVec2(center3);
+        xf2.p.setVec2(center2);
         xf2.q.setAngle(angle);
         for (var i = 0; i < this.m_count; ++i) {
           this.m_vertices[i] = Transform.mulVec2(xf2, this.m_vertices[i]);
@@ -11354,7 +11354,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       setVec2(aabb.upperBound, maxX + this.m_radius, maxY + this.m_radius);
     };
     PolygonShape2.prototype.computeMass = function(massData, density) {
-      zeroVec2(center2);
+      zeroVec2(center);
       var area = 0;
       var I = 0;
       zeroVec2(s);
@@ -11373,8 +11373,8 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         var D = crossVec2Vec2(e1$1, e2$1);
         var triangleArea = 0.5 * D;
         area += triangleArea;
-        combineVec2(center2, 1, center2, triangleArea * k_inv3, e1$1);
-        combineVec2(center2, 1, center2, triangleArea * k_inv3, e2$1);
+        combineVec2(center, 1, center, triangleArea * k_inv3, e1$1);
+        combineVec2(center, 1, center, triangleArea * k_inv3, e2$1);
         var ex1 = e1$1.x;
         var ey1 = e1$1.y;
         var ex2 = e2$1.x;
@@ -11384,10 +11384,10 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         I += 0.25 * k_inv3 * D * (intx2 + inty2);
       }
       massData.mass = density * area;
-      setMulVec2(center2, 1 / area, center2);
-      sumVec2(massData.center, center2, s);
+      setMulVec2(center, 1 / area, center);
+      sumVec2(massData.center, center, s);
       massData.I = density * I;
-      massData.I += massData.mass * (dotVec2(massData.center, massData.center) - dotVec2(center2, center2));
+      massData.I += massData.mass * (dotVec2(massData.center, massData.center) - dotVec2(center, center));
     };
     PolygonShape2.prototype.validate = function() {
       for (var i = 0; i < this.m_count; ++i) {
@@ -11443,13 +11443,13 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
   __name(computeCentroid, "computeCentroid");
   var BoxShape = function(_super) {
     __extends(BoxShape2, _super);
-    function BoxShape2(hx, hy, center3, angle) {
+    function BoxShape2(hx, hy, center2, angle) {
       var _this = this;
       if (!(_this instanceof BoxShape2)) {
-        return new BoxShape2(hx, hy, center3, angle);
+        return new BoxShape2(hx, hy, center2, angle);
       }
       _this = _super.call(this) || this;
-      _this._setAsBox(hx, hy, center3, angle);
+      _this._setAsBox(hx, hy, center2, angle);
       return _this;
     }
     __name(BoxShape2, "BoxShape");
@@ -11514,8 +11514,8 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       return 1;
     };
     CircleShape2.prototype.testPoint = function(xf2, p) {
-      var center3 = transformVec2(temp, xf2, this.m_p);
-      return distSqrVec2(p, center3) <= this.m_radius * this.m_radius;
+      var center2 = transformVec2(temp, xf2, this.m_p);
+      return distSqrVec2(p, center2) <= this.m_radius * this.m_radius;
     };
     CircleShape2.prototype.rayCast = function(output2, input2, xf2, childIndex) {
       var position = Vec2.add(xf2.p, Rot.mulVec2(xf2.q, this.m_p));
@@ -15629,69 +15629,15 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
     manifold.pointCount = pointCount;
   }, "CollideEdgePolygon");
 
-  // code/collider.ts
-  function collider(opt) {
-    let fixture;
-    return {
-      id: "collider",
-      require: ["rigidBody"],
-      add() {
-        if (this.is("sprite") || this.is("rect")) {
-          const w = (this.width || 61) / 20;
-          const h = (this.height || 53) / 20;
-          fixture = this.body.createFixture({
-            shape: new Box(w, h, Vec2(0, 0)),
-            density: 1,
-            friction: opt.friction || 0,
-            restitution: opt.bounciness || 0,
-            isSensor: opt.isTrigger
-          });
-        } else {
-          fixture = this.body.createFixture({
-            shape: new Box(50 / 2, 4 / 2, Vec2(0, 0)),
-            density: 1,
-            friction: opt.friction || 0,
-            restitution: opt.bounciness || 0,
-            isSensor: opt.isTrigger
-          });
-        }
-      },
-      destroy() {
-        this.body.destroyFixture(fixture);
-      }
-    };
-  }
-  __name(collider, "collider");
-  function circleCollider(opt) {
-    let fixture;
-    return {
-      id: "circleCollider",
-      require: ["rigidBody"],
-      add() {
-        fixture = this.body.createFixture({
-          shape: new CircleShape(opt.offset ? k2p(opt.offset) : Vec2(0, 0), opt.radius / 10),
-          density: 1,
-          friction: opt.friction || 0,
-          restitution: opt.bounciness || 0,
-          isSensor: opt.isTrigger
-        });
-      },
-      destroy() {
-        this.body.destroyFixture(fixture);
-      }
-    };
-  }
-  __name(circleCollider, "circleCollider");
-
   // code/world.ts
   function p2k(v3) {
     return vec2(v3.x * 10, v3.y * 10);
   }
   __name(p2k, "p2k");
-  function k2p2(v3) {
+  function k2p(v3) {
     return Vec2(v3.x / 10, v3.y / 10);
   }
-  __name(k2p2, "k2p");
+  __name(k2p, "k2p");
   var world = new World({
     gravity: Vec2(0, 2400 / 100)
   });
@@ -15712,6 +15658,60 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
   world.on("post-solve", function(contact, contactImpulse) {
   });
 
+  // code/collider.ts
+  function collider(opt) {
+    let _fixture;
+    return {
+      id: "collider",
+      require: ["rigidBody"],
+      add() {
+        if (this.is("sprite") || this.is("rect")) {
+          const w = (this.width || 61) / 20;
+          const h = (this.height || 53) / 20;
+          _fixture = this.body.createFixture({
+            shape: new Box(w, h, Vec2(0, 0)),
+            density: 1,
+            friction: opt.friction || 0,
+            restitution: opt.bounciness || 0,
+            isSensor: opt.isTrigger
+          });
+        } else {
+          _fixture = this.body.createFixture({
+            shape: new Box(50 / 2, 4 / 2, Vec2(0, 0)),
+            density: 1,
+            friction: opt.friction || 0,
+            restitution: opt.bounciness || 0,
+            isSensor: opt.isTrigger
+          });
+        }
+      },
+      destroy() {
+        this.body.destroyFixture(_fixture);
+      }
+    };
+  }
+  __name(collider, "collider");
+  function circleCollider(opt) {
+    let _fixture;
+    return {
+      id: "circleCollider",
+      require: ["rigidBody"],
+      add() {
+        _fixture = this.body.createFixture({
+          shape: new CircleShape(opt.offset ? k2p(opt.offset) : Vec2(0, 0), opt.radius / 10),
+          density: 1,
+          friction: opt.friction || 0,
+          restitution: opt.bounciness || 0,
+          isSensor: opt.isTrigger
+        });
+      },
+      destroy() {
+        this.body.destroyFixture(_fixture);
+      }
+    };
+  }
+  __name(circleCollider, "circleCollider");
+
   // code/joint.ts
   function springJoint(opt) {
     let joint;
@@ -15724,8 +15724,8 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
           collideConnected: (_a20 = opt.enableCollision) != null ? _a20 : true,
           bodyA: this.body,
           bodyB: opt.connectedObject.body,
-          localAnchorA: k2p2(opt.anchor),
-          localAnchorB: k2p2(opt.connectedObjectAnchor),
+          localAnchorA: k2p(opt.anchor),
+          localAnchorB: k2p(opt.connectedObjectAnchor),
           dampingRatio: opt.dampingRatio,
           frequencyHz: opt.frequency
         }));
@@ -15813,7 +15813,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       },
       set target(t) {
         if (joint) {
-          joint.setTarget(k2p2(t));
+          joint.setTarget(k2p(t));
         }
       }
     };
@@ -15839,7 +15839,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
             const l = v3.len();
             const d2 = l * distanceScale / 10;
             const s2 = forceMode === "constant" ? 1 : forceMode === "inverseLinear" ? 1 / d2 : 1 / __pow(d2, 2);
-            rb.applyForce(v3.scale(forceMagnitude * s2 / l));
+            rb.addForce(v3.scale(forceMagnitude * s2 / l));
           }
         });
       },
@@ -15895,7 +15895,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       add() {
         _body = world.createBody({
           type: opt.type || "dynamic",
-          position: k2p2(this.pos),
+          position: k2p(this.pos),
           angle: deg2rad(this.angle || 0),
           linearDamping: opt.drag || 0,
           angularDamping: opt.angularDrag || 0,
@@ -15912,22 +15912,60 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
         this.pos = p2k(_body.getPosition());
         this.angle = rad2deg(_body.getAngle());
       },
-      applyForce(force, point2 = null) {
-        const p = point2 ? Vec2(point2.x, point2.y) : this.body.getPosition();
-        _body.applyForce(Vec2(force.x, force.y), p);
+      addForce(force, mode = "force") {
+        if (mode === "force") {
+          _body.applyForce(k2p(force), _body.getPosition());
+        } else {
+          _body.applyLinearImpulse(k2p(force), _body.getPosition());
+        }
       },
-      applyTorque(torque) {
-        _body.applyTorque(torque);
+      addForceAtPosition(force, position, mode = "force") {
+        if (mode === "force") {
+          _body.applyForce(k2p(force), k2p(position));
+        } else {
+          _body.applyLinearImpulse(k2p(force), k2p(position));
+        }
       },
-      applyLinearImpulse(impulse, point2 = null) {
-        const p = point2 ? Vec2(point2.x, point2.y) : this.body.getPosition();
-        _body.applyLinearImpulse(Vec2(impulse.x, impulse.y), p);
+      addRelativeForce(force, mode = "force") {
+        if (mode === "force") {
+          _body.applyForce(_body.getWorldVector(k2p(force)), _body.getPosition());
+        } else {
+          _body.applyLinearImpulse(_body.getWorldVector(k2p(force)), _body.getPosition());
+        }
       },
-      applyAngularImpulse(impulse) {
-        _body.applyAngularImpulse(impulse);
+      addTorque(torque, mode = "force") {
+        if (mode === "force") {
+          _body.applyTorque(torque);
+        } else {
+          _body.applyAngularImpulse(torque);
+        }
       },
-      jump(force) {
-        this.applyLinearImpulse(vec2(0, -force));
+      getPoint(point2) {
+        return p2k(_body.getLocalPoint(k2p(point2)));
+      },
+      getRelativePoint(relativePoint) {
+        return p2k(_body.getWorldPoint(k2p(relativePoint)));
+      },
+      getRelativePointVelocity(relativePoint) {
+        return p2k(_body.getLinearVelocityFromLocalPoint(k2p(relativePoint)));
+      },
+      getVector(vector) {
+        return p2k(_body.getLocalVector(k2p(vector)));
+      },
+      getRelativeVector(relativeVector) {
+        return p2k(_body.getWorldVector(k2p(relativeVector)));
+      },
+      get isAwake() {
+        return _body.isAwake();
+      },
+      get isSleeping() {
+        return !_body.isAwake();
+      },
+      sleep() {
+        _body.setAwake(false);
+      },
+      wakeUp() {
+        _body.setAwake(true);
       },
       onCollisionEnter(callback) {
         this.on("collide_enter", callback);
@@ -15937,6 +15975,9 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
       },
       onCollisionExit(callback) {
         this.on("collide_exit", callback);
+      },
+      jump(force) {
+        this.addForce(vec2(0, -force), "impulse");
       }
     };
   }
@@ -15958,7 +15999,7 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
     rotate(0),
     rigidBody({ type: "dynamic", freezeRotation: true }),
     circleCollider({ radius: 25, friction: 0.5 }),
-    pointEffector({ forceMagnitude: -1e3, forceMode: "inverseLinear", distanceScale: 0.1 })
+    pointEffector({ forceMagnitude: -1e4, forceMode: "inverseLinear", distanceScale: 0.1 })
   ]);
   add([
     rect(300, 40),
@@ -16009,10 +16050,10 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
     bean.jump(500);
   });
   onKeyDown("right", () => {
-    bean.applyForce(vec2(500, 0));
+    bean.addForce(vec2(500, 0));
   });
   onKeyDown("left", () => {
-    bean.applyForce(vec2(-500, 0));
+    bean.addForce(vec2(-500, 0));
   });
   onMousePress(() => {
     bean.use(targetJoint({ dampingRatio: 0.5, frequency: 5, maxForce: 1e4 }));
@@ -16025,9 +16066,6 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
   });
   onMouseRelease(() => {
     bean.unuse("targetJoint");
-  });
-  loop(1, () => {
-    console.log(center().angle(mousePos()));
   });
 })();
 /*! *****************************************************************************
