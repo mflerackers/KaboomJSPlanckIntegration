@@ -2,12 +2,15 @@ import kaboom from "kaboom"
 import "kaboom/global"
 import { collider, circleCollider } from "./collider"
 import { springJoint, targetJoint } from "./joint"
-import { pointEffector } from "./effectors"
+import { pointEffector, surfaceEffector } from "./effectors"
 import { rigidBody } from "./rigid_body"
-import { world } from "./world"
+import { world, planckIntegration } from "./world"
 
 // initialize context
-kaboom()
+kaboom({
+    plugins: [planckIntegration]
+})
+
 
 onUpdate(() => {
     const timeStep = 1 / 60
@@ -27,7 +30,7 @@ const bean = add([
     rotate(0),
     rigidBody({ type: "dynamic", freezeRotation: true }),
     circleCollider({ radius: 25, friction: 0.5 }),
-    pointEffector({ forceMagnitude: -10000, forceMode: "inverseLinear", distanceScale: 0.1 }),
+    //pointEffector({ forceMagnitude: -10000, forceMode: "inverseLinear", distanceScale: 0.1 }),
 ])
 
 add([
@@ -36,7 +39,8 @@ add([
     pos(200, 300),
     rotate(0),
     rigidBody({ type: "static" }),
-    collider({ friction: 0.5 })
+    collider({ friction: 0.5 }),
+    surfaceEffector({ speed: 100 }),
 ])
 
 add([

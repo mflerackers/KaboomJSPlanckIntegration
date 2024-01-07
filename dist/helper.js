@@ -217,14 +217,13 @@
             }, this);
             return filtered.map(function(line) {
               if (line.indexOf("(eval ") > -1) {
-                line = line.replace(/eval code/g, "eval").replace(/(\(eval at [^()]*)|(\),.*$)/g, "");
+                line = line.replace(/eval code/g, "eval").replace(/(\(eval at [^()]*)|(,.*$)/g, "");
               }
-              var sanitizedLine = line.replace(/^\s+/, "").replace(/\(eval code/g, "(");
-              var location2 = sanitizedLine.match(/ (\((.+):(\d+):(\d+)\)$)/);
+              var sanitizedLine = line.replace(/^\s+/, "").replace(/\(eval code/g, "(").replace(/^.*?\s+/, "");
+              var location2 = sanitizedLine.match(/ (\(.+\)$)/);
               sanitizedLine = location2 ? sanitizedLine.replace(location2[0], "") : sanitizedLine;
-              var tokens = sanitizedLine.split(/\s+/).slice(1);
-              var locationParts = this.extractLocation(location2 ? location2[1] : tokens.pop());
-              var functionName = tokens.join(" ") || void 0;
+              var locationParts = this.extractLocation(location2 ? location2[1] : sanitizedLine);
+              var functionName = location2 && sanitizedLine || void 0;
               var fileName = ["eval", "<anonymous>"].indexOf(locationParts[0]) > -1 ? void 0 : locationParts[0];
               return new StackFrame({
                 functionName,
@@ -1677,7 +1676,7 @@
                       sourceMapSource.sourceRoot = defaultSourceRoot;
                     }
                     resolve2(new SourceMap.SourceMapConsumer(sourceMapSource));
-                  }, reject);
+                  }).catch(reject);
                 }.bind(this));
                 this.sourceMapConsumerCache[sourceMappingURL] = sourceMapConsumerPromise;
                 resolve(sourceMapConsumerPromise);
