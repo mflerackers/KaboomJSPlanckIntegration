@@ -1,6 +1,72 @@
 import { Comp, Vec2 as V2, GameObj } from "kaboom"
 import { Contact, Manifold, Vec2 } from "planck"
 import { RigidBodyComp } from "./rigid_body"
+import { k2p } from "./world"
+
+export type AreaEffectorOpt = {
+    forceAngle?: number
+    forceMagnitude?: number
+    forceVariation?: number
+    linearDrag?: number
+    angularDrag?: number
+    //forceTarget: "collider" || "rigidbody"
+}
+
+export interface AreaEffectorComp extends Comp {
+    forceAngle: number
+    forceMagnitude: number
+    forceVariation: number
+    linearDrag: number
+    angularDrag: number
+}
+
+export function areaEffector(opt: AreaEffectorOpt): AreaEffectorComp {
+    let forceAngle = opt.forceAngle ?? 0
+    let forceMagnitude = opt.forceMagnitude ?? 0
+    let forceVariation = opt.forceVariation ?? 0
+    let linearDrag = opt.linearDrag ?? 0
+    let angularDrag = opt.angularDrag ?? 0
+    return {
+        id: "areaEffector",
+        require: ["rigidBody", "collider"],
+        add() {
+            this.on("collision_pre_solve", (other: GameObj<RigidBodyComp>, contact: Contact, oldManifold: Manifold) => {
+                const force = V2.fromAngle(forceAngle).scale(forceMagnitude + rand(-forceVariation, forceVariation))
+                other.addForce(force)
+            })
+        },
+        get forceAngle() {
+            return forceAngle
+        },
+        set forceAngle(value) {
+            forceAngle = value
+        },
+        get forceMagnitude() {
+            return forceMagnitude
+        },
+        set forceMagnitude(value) {
+            forceMagnitude = value
+        },
+        get forceVariation() {
+            return forceVariation
+        },
+        set forceVariation(value) {
+            forceVariation = value
+        },
+        get linearDrag() {
+            return linearDrag
+        },
+        set linearDrag(value) {
+            linearDrag = value
+        },
+        get angularDrag() {
+            return angularDrag
+        },
+        set angularDrag(value) {
+            angularDrag = value
+        }
+    }
+}
 
 export type ConstantForceOpt = {
     force: V2
@@ -9,9 +75,9 @@ export type ConstantForceOpt = {
 }
 
 export interface ConstantForceComp extends Comp {
-    force: V2
-    relativeForce: V2
-    torque: number
+    force?: V2
+    relativeForce?: V2
+    torque?: number
 }
 
 export function constantForce(opt: ConstantForceOpt): ConstantForceComp {
@@ -22,8 +88,11 @@ export function constantForce(opt: ConstantForceOpt): ConstantForceComp {
         id: "constantForce",
         require: ["rigidBody"],
         update() {
-            if (_force) {
-                this.applyForce(_force)
+            if (_force !== undefined) {
+                this.addForce(_force)
+            }
+            if (_torque !== undefined) {
+                this.addTorque(_torque)
             }
         },
         get force() {
@@ -55,7 +124,7 @@ export type PointEffectorOpt = {
     distanceScale?: number
     linearDrag?: number
     angularDrag?: number
-    forceMode: ForceMode
+    forceMode?: ForceMode
 }
 
 export interface PointEffectorComp extends Comp {

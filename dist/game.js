@@ -16027,7 +16027,6 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
           if (!useFriction) {
             contact.setFriction(0);
           }
-          console.log(`moving at ${contact.getTangentSpeed()}`);
         });
       },
       get forceScale() {
