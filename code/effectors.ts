@@ -1,4 +1,4 @@
-import { Comp, Vec2 as V2, GameObj } from "kaboom"
+import { Comp, GameObj } from "kaboom"
 import { Contact, Manifold, Vec2 } from "planck"
 import { RigidBodyComp } from "./rigid_body"
 import { k2p } from "./world"
